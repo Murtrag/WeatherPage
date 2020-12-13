@@ -2,16 +2,27 @@
 
 # Projekt
 
-## Przygotowanie
-> Zmodyfikuj plik `webpack.config.js` tak, aby:
-> - zmienna `entryPath` wskazywała na `1_Zadania/Tydzien_1_Dzien_6_2/1_Projekt`
-> - zmienna `entryFile` wskazywała na plik, nad którym aktualnie pracujesz, np. `app.js`
->
-> **Pamiętaj aby po każdej zmianie w pliku `webpack.config.js` przerwać działanie Webpacka (`CTRL+C`) a następnie włączyć go z powrotem (`npm start`).**
+## Installation
+> install npm:
+``` 
+sudo yum install npm 
+```
 
-Celem warsztatu, jest przygotowanie aplikacji pogodowej, pozyskującej dane z ogólnodostępnych API. Pierwszym krokiem powinno być zapoznanie się ze strukturą projektu, układem plików, dokumentacjami API a także plikiem HTML.
+> Clone project
+``` 
+git clone url
+```
 
-![](screenshot.png)
+> Install dependiences
+``` 
+cd project
+npm i
+```
+> start application
+```
+npm start
+```
+
 
 ### Struktura projektu:
 
