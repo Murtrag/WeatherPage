@@ -3,6 +3,7 @@
 # Projekt
 
 ## Introduction
+Dashboard that checks the weather and compares the weather in different places.
 
 ## Installation
 1. install npm:
