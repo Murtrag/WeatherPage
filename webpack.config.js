@@ -3,7 +3,7 @@ const entryPath = "";
 const entryFile = "app.js";
 
 module.exports = {
-  entry: `./js/${entryFile}`,
+  entry: ["@babel/polyfill", `./js/${entryFile}`],
   output: {
     filename: "out.js",
     path: path.resolve(__dirname, `${entryPath}/build`)

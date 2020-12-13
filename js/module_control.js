@@ -1,3 +1,5 @@
+import {removeAccents} from './utils.js';
+
 class ModuleControl{
 	constructor(elementId){
 		if(elementId){
@@ -38,7 +40,7 @@ class ModuleControl{
 			day.querySelector('.temperature').innerText = tempAvg;
 			const urlSplit = day.querySelector('img').src.split('/');
 			const newPath = urlSplit.splice(0, urlSplit.length-1).join('/')+"/"+dayForecast.icon+".svg"
-			console.log(day.querySelector('img').src);
+			// console.log(day.querySelector('img').src);
 			day.querySelector('img').src = newPath; 
 			day.title = `${dayForecast.title}
 temp max: ${dayForecast.temperatureMax}
@@ -64,12 +66,15 @@ getCurrentCity = async ()=>{
 getGeoLocation = async (cityName)=>{
 	const locations = await fetch(`${this.antiCors}https://graphhopper.com/api/1/geocode?key=76949e71-3a1c-417f-8914-fa1d2bfc0d07&q=${cityName}`);
 	const locationsJson = await locations.json();
-
 	const resp = await fetch(`${this.antiCors}http://ip-api.com/json/`);
+	// console.log(locationsJson.hits)
 	const curentLocation = await resp.json();
-	const matchLocation = locationsJson.hits.find(function(el) {
-	  return el.country.includes(curentLocation.country);
-	});
+	// console.log('cityName rm accents param:')
+	// console.log(removeAccents(cityName))
+	// const matchLocation = locationsJson.hits.find(e=>e.name.includes("Piekary Śląskie"))
+	const matchLocation = locationsJson.hits.find(e=>{
+		return removeAccents(e.name).includes(cityName) || e.name.includes(cityName)
+	})
 	return [matchLocation.point.lat, matchLocation.point.lng]
 };
 getForecast = async (lat, lng) =>{
@@ -77,7 +82,7 @@ getForecast = async (lat, lng) =>{
 	const forecast = await fetch(`${this.antiCors}https://api.darksky.net/forecast/d06bda83af7b3cb2e02f64dddab41c4a/${lat},${lng}?units=si&lang=pl`);
 	const forecastJson = await forecast.json();
 	const forecastFormat = forecastJson.daily.data.map(day=>{
-		console.log(forecastFormat);
+		// console.log(forecastFormat);
 		return { 
 			day: daysTrans[(new Date(day.time*1000)).getDay()],
 			temperatureMax: day.temperatureMax,
@@ -91,7 +96,7 @@ getForecast = async (lat, lng) =>{
 getTodaysWeather = async(lat, lng) => {
 	const forecast = await fetch(`${this.antiCors}https://api.darksky.net/forecast/d06bda83af7b3cb2e02f64dddab41c4a/${lat},${lng}?units=si&lang=pl`);
 	const forecastJson = await forecast.json();
-	console.log(forecastJson);
+	// console.log(forecastJson);
 	return {
 		"temperature": forecastJson.currently.temperature,
 		"pressure": forecastJson.currently.pressure,

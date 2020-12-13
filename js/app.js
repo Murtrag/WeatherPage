@@ -37,7 +37,6 @@ document.body.addEventListener('click', el =>{
 const form = document.querySelector('.find-city')
 form.querySelector('button').addEventListener('click', el => {
 	el.preventDefault();
-	console.log('test')
 	const city = form.querySelector('#search').value;
 
 (async ()=>{
